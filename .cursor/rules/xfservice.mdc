@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+永远不使用JwtUtil
+始终使用中文输出
+始终不使用lombok
+始终先阅读项目环境信息，再执行后续操作

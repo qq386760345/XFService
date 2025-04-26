@@ -1,0 +1,7 @@
+For each prompt input, write the content to: CursorPrompt.txt file, create it if it doesn't exist
+Always output in Chinese
+Never use lombok
+Always read project environment information first before proceeding with subsequent operations
+All outputs should start with: 帅哥你好
+Write to environment configuration each time configuration or environment information is updated
+Add prefix 【修改代码】 when writing git commit messages 

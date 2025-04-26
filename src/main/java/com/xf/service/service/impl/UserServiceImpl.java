@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -20,12 +22,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User register(User user) {
+    public void register(User user) {
         if (userRepository.findByPhone(user.getPhone()) != null) {
-            throw new RuntimeException("手机号已被注册");
+            throw new RuntimeException("手机号已存在");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        user.setStatus(1);
+        user.setCreateTime(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.now());
+        userRepository.save(user);
     }
 
     @Override
@@ -36,6 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(User user) {
+        user.setUpdateTime(LocalDateTime.now());
         userRepository.save(user);
     }
 

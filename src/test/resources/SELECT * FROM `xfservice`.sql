@@ -1,0 +1,1 @@
+SELECT * FROM `xfservice`.`user_sessions` LIMIT 1000;

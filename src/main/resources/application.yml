@@ -4,8 +4,10 @@ server:
 spring:
   application:
     name: XFService
+  main:
+    allow-circular-references: true
   datasource:
-    url: jdbc:mysql://localhost:3306/xfservice?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://1.95.60.219:3306/xfservice?useSSL=false&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -28,6 +30,8 @@ spring:
           - data-id: common.yml
             group: DEFAULT_GROUP
             refresh: true
+        import-check:
+          enabled: false
 
 jwt:
   expiration: 3600

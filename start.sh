@@ -12,7 +12,7 @@ if pgrep -f $JAR_NAME > /dev/null; then
 fi
 
 # 启动服务
-nohup java -jar $JAR_NAME > $LOG_FILE 2>&1 &
+nohup java -jar $JAR_NAME --spring.profiles.active=dev --spring.cloud.nacos.config.import-check.enabled=false > $LOG_FILE 2>&1 &
 
 # 等待服务启动
 sleep 5

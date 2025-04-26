@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: xf-service
+  profiles:
+    active: test
+  config:
+    import: optional:nacos:application-${spring.profiles.active}.yml
+  cloud:
+    nacos:
+      config:
+        enabled: false
+        import-check:
+          enabled: false
+      discovery:
+        enabled: false
+  datasource:
+    url: jdbc:mysql://1.95.60.219:3306/xfservice?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+
+jwt:
+  expiration: 3600
+  secret: your-secret-key-here
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.xf.service: DEBUG

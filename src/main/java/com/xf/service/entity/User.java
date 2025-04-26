@@ -1,14 +1,17 @@
 package com.xf.service.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,17 +22,32 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column
     private String nickname;
 
+    @Column
     private String avatar;
 
+    @Column(nullable = false)
     private Integer status = 1;
 
-    @CreationTimestamp
+    @Column(name = "create_time", nullable = false, updatable = false)
     private LocalDateTime createTime;
 
-    @UpdateTimestamp
+    @Column(name = "update_time", nullable = false)
     private LocalDateTime updateTime;
+
+    @Transient
+    private boolean enabled = true;
+
+    @Transient
+    private boolean accountNonExpired = true;
+
+    @Transient
+    private boolean credentialsNonExpired = true;
+
+    @Transient
+    private boolean accountNonLocked = true;
 
     public Long getId() {
         return id;
@@ -93,5 +111,51 @@ public class User {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return phone;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 } 
