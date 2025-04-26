@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: xf-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  cloud:
+    nacos:
+      config:
+        server-addr: 1.95.60.219:8848
+        file-extension: yml
+        namespace: ${spring.profiles.active}
+        shared-configs:
+          - data-id: common.yml
+            refresh: true
+            group: DEFAULT_GROUP 

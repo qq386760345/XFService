@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: XFService
+  datasource:
+    url: jdbc:mysql://localhost:3306/xfservice?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        namespace: public
+        group: DEFAULT_GROUP
+        shared-configs:
+          - data-id: common.yml
+            group: DEFAULT_GROUP
+            refresh: true
+
+jwt:
+  expiration: 3600
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.xf.service: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info 
